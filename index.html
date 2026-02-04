@@ -235,13 +235,31 @@ function playMusic() {
 
 /* 🏃 Runaway logic (AFTER first hover) */
 const runaway = document.getElementById('runaway');
-let activated = false;
+let taps = 0;
 
-runaway.addEventListener('mouseover', () => {
-
-  runaway.style.position = 'absolute';
+function moveButton() {
+  runaway.style.position = 'fixed';
   runaway.style.left = Math.random() * 70 + 'vw';
   runaway.style.top = Math.random() * 70 + 'vh';
+}
+
+/* Desktop */
+runaway.addEventListener('mouseover', () => {
+ moveButton();
+});
+
+/* Mobile */
+runaway.addEventListener('touchstart', (e) => {
+  e.preventDefault(); // prevent accidental click
+  taps++;
+  if (taps > 1) moveButton();
+});
+
+/* Fallback click (some browsers) */
+runaway.addEventListener('click', (e) => {
+  e.preventDefault();
+  taps++;
+  if (taps > 1) moveButton();
 });
 </script>
 
