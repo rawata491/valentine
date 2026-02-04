@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forever Us ✨</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #1b1f3b, #0a0d1a);
+  color: #fff;
+}
+
+/* ✨ STAR FIELD */
+.stars, .stars::after {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 80%, #fff, transparent),
+    radial-gradient(2px 2px at 90% 10%, #fff, transparent);
+  animation: twinkle 6s infinite alternate;
+}
+
+.stars::after {
+  content:"";
+  animation-delay: 3s;
+}
+
+@keyframes twinkle {
+  from { opacity: .3; }
+  to { opacity: .8; }
+}
+
+/* 🎬 SCENES */
+.scene {
+  position: fixed;
+  inset: 0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px 20px;
+
+  opacity:0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+  pointer-events:none;
+}
+
+.scene.active {
+  opacity:1;
+  transform: translateY(0);
+  pointer-events:auto;
+}
+
+/* 💫 TEXT */
+h1, h2 {
+  font-family:'Cinzel', serif;
+  margin-bottom:20px;
+  letter-spacing:2px;
+}
+
+h1 { font-size:2.6rem; }
+h2 { font-size:2.1rem; }
+
+p {
+  max-width:680px;
+  font-size:1.1rem;
+  line-height:1.9;
+  color:#d6d6ff;
+  margin-bottom:30px;
+}
+
+/* 🌟 BUTTONS */
+.btn {
+  background: transparent;
+  border: 1px solid #aaa;
+  color:#fff;
+  padding:14px 36px;
+  font-size:1rem;
+  cursor:pointer;
+  border-radius:30px;
+  transition:.3s;
+}
+
+.btn:hover {
+  background:#fff;
+  color:#0a0d1a;
+}
+
+/* 💖 HEART LIGHT */
+.heart {
+  position:fixed;
+  font-size:20px;
+  color:#ff6bcb;
+  animation: rise 6s linear infinite;
+  bottom:-10vh;
+}
+
+@keyframes rise {
+  from { transform:translateY(0); opacity:1; }
+  to { transform:translateY(-120vh); opacity:0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- 🎵 MUSIC -->
+<iframe id="music" width="0" height="0"
+  src="https://www.youtube.com/embed/1ZYbU82GVz4?loop=1&playlist=1ZYbU82GVz4"
+  frameborder="0" allow="autoplay"></iframe>
+
+<!-- SCENE 1 -->
+<div class="scene active">
+  <h1>[Her Name]</h1>
+  <p>
+    Under the same sky,<br>
+    in this vast universe…<br>
+    I found you.
+  </p>
+  <button class="btn" onclick="playMusic(); next()">Begin ✨</button>
+</div>
+
+<!-- SCENE 2 -->
+<div class="scene">
+  <h2>Our Journey</h2>
+  <p>
+    Out of millions of paths,<br>
+    ours crossed.<br>
+    And somehow… it felt right from the start.
+  </p>
+  <button class="btn" onclick="next()">Next</button>
+</div>
+
+<!-- SCENE 3 -->
+<div class="scene">
+  <h2>What You Mean To Me</h2>
+  <p>
+    You are my calm in chaos.<br>
+    My laughter in silence.<br>
+    My home in this world.
+  </p>
+  <button class="btn" onclick="next()">Continue</button>
+</div>
+
+<!-- SCENE 4 -->
+<div class="scene">
+  <h2>A Simple Question</h2>
+  <p>
+    If I asked you again…<br>
+    with the same heart,<br>
+    and the same love —
+  </p>
+  <button class="btn" onclick="next()">…</button>
+</div>
+
+<!-- SCENE 5 -->
+<div class="scene">
+  <h2>Would You</h2>
+  <p>
+    Choose me.<br>
+    Today.<br>
+    Tomorrow.<br>
+    Always.
+  </p>
+
+  <button class="btn" onclick="yes()">Yes ✨</button>
+</div>
+
+<!-- SCENE 6 -->
+<div class="scene">
+  <h2>Forever</h2>
+  <p>
+    As long as there are stars above us,<br>
+    there will be love between us.
+  </p>
+  <p><strong>I love you. 🌙</strong></p>
+</div>
+
+<script>
+const scenes = document.querySelectorAll('.scene');
+let i = 0;
+
+function next() {
+  scenes[i].classList.remove('active');
+  i = Math.min(i+1, scenes.length-1);
+  scenes[i].classList.add('active');
+}
+
+function yes() {
+  next();
+  for (let j=0;j<40;j++) {
+    const h=document.createElement('div');
+    h.className='heart';
+    h.innerText='✨';
+    h.style.left=Math.random()*100+'vw';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  }
+}
+
+function playMusic() {
+  const m=document.getElementById('music');
+  m.src += "&autoplay=1";
+}
+</script>
+
+</body>
+</html>

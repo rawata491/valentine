@@ -120,12 +120,10 @@ p {
 <body>
 
 <!-- 🎵 MUSIC -->
-<iframe id="music"
-  width="0" height="0"
-  src="https://www.youtube.com/embed/Ri3WsPDi4MY?loop=1&playlist=Ri3WsPDi4MY"
-  frameborder="0"
-  allow="autoplay">
-</iframe>
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
 
 <!-- SCENE 1 -->
 <div class="scene active">
@@ -261,6 +259,16 @@ runaway.addEventListener('click', (e) => {
   taps++;
   if (taps > 1) moveButton();
 });
+const audio = document.getElementById("bgMusic");
+audio.volume = 0;
+audio.play();
+let v = 0;
+const fade = setInterval(() => {
+  v += 0.02;
+  audio.volume = Math.min(v, 0.6);
+  if (v >= 0.6) clearInterval(fade);
+}, 100);
+
 </script>
 
 </body>
